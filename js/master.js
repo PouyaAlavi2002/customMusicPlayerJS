@@ -119,3 +119,23 @@ mainAudio.addEventListener("timeupdate", (e)=>{
     }
     musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
   });
+progressArea.addEventListener("click", (e) => {
+    let progressWidth = progressArea.clientWidth; //getting width of progress bar
+    let clickedOffsetX = e.offsetX; //getting offset x value
+    let songDuration = mainAudio.duration; //getting song total duration
+
+    mainAudio.currentTime = (clickedOffsetX / progressWidth) * songDuration;
+    playMusic(); //calling playMusic function
+    playingSong();
+});
+mainAudio.addEventListener('ended', () => {
+    musicIndex++
+    if (musicIndex > allMusic.length) {
+        musicIndex = 1
+    }
+    else {
+        musicIndex = musicIndex
+    }
+    loadMusic(musicIndex)
+    playPause()
+})
